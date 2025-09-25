@@ -18,6 +18,16 @@ let showPasDeDepenses = true;
 let total = 0;
 
 btnAjouter.addEventListener("click", () => {
+  console.log(inpIntitule.value.length);
+
+  if (
+    !inpIntitule.value.trim().length ||
+    !inpMontant.value.length ||
+    !categorie.value.length
+  ) {
+    showAlertError();
+    return;
+  }
   if (showPasDeDepenses) {
     listeDepenses.innerHTML = "";
     showPasDeDepenses = false;
@@ -83,6 +93,15 @@ async function deleteDepenses(itemToDelete) {
       role: "cancel",
     },
   ];
+
+  document.body.appendChild(alert);
+  await alert.present();
+}
+async function showAlertError() {
+  const alert = document.createElement("ion-alert");
+  alert.header = "Erreur de saisie";
+  alert.message = "Veuillez remplir les trois champs";
+  alert.buttons = ["Ok"];
 
   document.body.appendChild(alert);
   await alert.present();
